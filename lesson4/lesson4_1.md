@@ -1,4 +1,4 @@
-##world 欄位擷取
+## world 欄位擷取
 ˋˋˋsql
 SELECT 洲名,國家,日期,總確認數,總死亡數,新增死亡數
 FROM world;
@@ -6,77 +6,95 @@ FROM world;
 
 ˋˋˋsql
 
-##問題:
+## 問題:
 
-###1.查詢亞洲總共多少人死亡
+### 1.查詢亞洲總共多少人死亡
+ˋˋˋsql
 SELECT MAX (總死亡數) AS 亞洲總死亡數
 FROM world
 WHERE 洲名='亞洲';
+ˋˋˋ
 
-###2.查詢全世界2020年的總確診數?
+### 2.查詢全世界2020年的總確診數?
+ˋˋˋsql
 SELECT MAX (總確診數) AS 全世界總確診數
 FROM world
 WHERE 日期 BETWEEN '2020-01-01'  AND '2020-12-31';
+ˋˋˋ
 
-##3.查國家名有"阿"字,總死亡數大於10000?
+### 3.查國家名有"阿"字,總死亡數大於10000?
+ˋˋˋsql
 SELECT MAX(總死亡數) AS 國家總死亡數, 國家
 FROM world
 WHERE 國家 LIKE '%阿%' AND 總死亡數 > 10000
 GROUP BY 國家;
+ˋˋˋ
 
-
-##4.查詢哪個國家總確診數最多
+### 4.查詢哪個國家總確診數最多
+ˋˋˋsql
 SELECT MAX(總確診數) AS 國家總確診數, 國家
 FROM world
 GROUP BY 國家
 ORDER BY 國家總確診數 DESC
 LIMIT 1;
+ˋˋˋ
 
 
-##5.查詢亞洲台灣 2020-06-25 的總確診數
+### 5.查詢亞洲台灣 2020-06-25 的總確診數
+ˋˋˋsql
 SELECT 總確診數 AS "0625台灣總確診數"
 FROM world
 WHERE 日期 ='2020-06-25' AND 國家='台灣';
+ˋˋˋ
 
-##6.總死亡數最高的國家
+### 6.總死亡數最高的國家
+ˋˋˋsql
 SELECT MAX(總死亡數) AS 國家總死亡數, 國家
 FROM world
 GROUP BY 國家
 ORDER BY 國家總死亡數 DESC
 LIMIT 1;
+ˋˋˋ
 
-
-##7.台灣有多少人在2020確診?
+### 7.台灣有多少人在2020確診?
+ˋˋˋsql
 SELECT MAX(總確診數) AS 台灣2020確診數
 FROM world
 WHERE 日期 BETWEEN'2020-01-01' AND'2020-12-31' AND 國家='台灣';
+ˋˋˋ
 
 
-##8.排序各國總確診數
+### 8.排序各國總確診數
+ˋˋˋsql
 SELECT MAX(總確診數) AS 總確診數,國家
 FROM world
 GROUP BY 國家
 ORDER BY 總確診數 DESC;
+ˋˋˋ
 
-##9.查詢每百萬確診人數
+### 9.查詢每百萬確診人數
 
 
-##10.台灣哪個月死亡人數最多人
+### 10.台灣哪個月死亡人數最多人
+ˋˋˋsql
 SELECT TO_CHAR(日期, 'YYYY-MM') AS 月份,MAX(總死亡數) AS 總死亡數
 FROM world
 WHERE 國家='台灣'
 GROUP BY 月份
 ORDER BY 總死亡數 DESC
 LIMIT 1;
+ˋˋˋ
 
-##11.在哪個年度及月分，死亡數達到高峰
+### 11.在哪個年度及月分，死亡數達到高峰
+ˋˋˋsql
 SELECT TO_CHAR(日期, 'YYYY-MM') AS 月份,MAX(總死亡數) AS 總死亡數
 FROM world
 GROUP BY 月份
 ORDER BY 總死亡數 DESC
 LIMIT 1;
+ˋˋˋ
 
-##12.多明尼加確診數有多少?
+### 12.多明尼加確診數有多少?
 SELECT MAX(總死亡數) AS 總死亡數
 FROM world
 WHERE 國家='多明尼加';
